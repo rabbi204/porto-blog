@@ -17,18 +17,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Auth::routes();
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 /****************************************************************************
-*  For all admin controller
+*  For Admin Teamplate Load
 *****************************************************************************/
 // for show admin login form
 Route::get('admin/login',[App\Http\Controllers\AdminController::class, 'showAdminLoginForm']) -> name('admin.login');
-
 // for show admin register form
 Route::get('admin/register',[App\Http\Controllers\AdminController::class, 'showAdminRegisterForm']) -> name('admin.register');
-
 // for show admin register form
 Route::get('admin/dashboard',[App\Http\Controllers\AdminController::class, 'showAdminDashboard']) -> name('admin.dashboard');
+
+
+// admin login
+Route::post('admin/login',[App\Http\Controllers\Auth\LoginController::class, 'login']) -> name('admin.login');
