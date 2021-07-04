@@ -34,3 +34,5 @@ Route::get('admin/dashboard',[App\Http\Controllers\AdminController::class, 'show
 
 // admin login
 Route::post('admin/login',[App\Http\Controllers\Auth\LoginController::class, 'login']) -> name('admin.login');
+// admin logout
+Route::post('admin/logout',[App\Http\Controllers\Auth\LoginController::class, 'logout']) -> name('admin.logout');

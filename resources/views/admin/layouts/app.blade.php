@@ -37,7 +37,7 @@
 
 		<!-- Bootstrap Core JS -->
         <script src="{{ asset('admin/assets/js/popper.min.js') }}"></script>
-        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('admin/assets/js/bootstrap.min.js') }}"></script>
 
         <!-- Slimscroll JS -->
         <script src="{{ asset('admin/assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
@@ -49,6 +49,9 @@
 
 		<!-- Custom JS -->
 		<script src="{{ asset('admin/assets/js/script.js') }}"></script>
+		<script src="{{ asset('admin/assets/js/porto/custom.js') }}"></script>
+
+
 
     </body>
 
