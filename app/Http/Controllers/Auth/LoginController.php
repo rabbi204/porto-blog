@@ -37,4 +37,32 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     *  login feature
+     */
+    public function username()
+    {
+        $login_data = request() -> input('login_data');
+
+        // for phone_number check
+        $cell = substr( $login_data, 0, 4 );
+
+        if( filter_var( $login_data, FILTER_VALIDATE_EMAIL ) ){
+            $type = 'email';
+        }else if( $cell = '8801'){
+            $type = 'phone_number';
+        }else {
+            $type = 'username';
+        }
+
+        // data merge
+        request() -> merge( [ $type => $login_data ] );
+
+        return $type;
+
+    }
+
+
+
 }
