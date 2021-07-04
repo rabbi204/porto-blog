@@ -16,13 +16,13 @@
                         <p class="account-subtitle">Access to our dashboard</p>
 
                         <!-- Form -->
-                        <form action="{{ route('admin.login') }}" method="POST">
+                        <form action="{{ route('admin.login') }}" method="POST" autocomplete="off">
                             @csrf
                             <div class="form-group">
                                 <input name="login_data" class="form-control" type="text" placeholder="Email/ Phone/ Username">
                             </div>
                             <div class="form-group">
-                                <input name="password" class="form-control" type="text" placeholder="Password">
+                                <input name="password" class="form-control" type="password" placeholder="Password">
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary btn-block" type="submit">Login</button>
@@ -30,7 +30,7 @@
                         </form>
                         <!-- /Form -->
 
-                        <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a></div>
+                        {{-- <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a></div>
                         <div class="login-or">
                             <span class="or-line"></span>
                             <span class="span-or">or</span>
@@ -41,9 +41,9 @@
                             <span>Login with</span>
                             <a href="#" class="facebook"><i class="fa fa-facebook"></i></a><a href="#" class="google"><i class="fa fa-google"></i></a>
                         </div>
-                        <!-- /Social Login -->
+                        <!-- /Social Login --> --}}
 
-                        <div class="text-center dont-have">Don’t have an account? <a href="register.html">Register</a></div>
+                        <div class="text-center dont-have">Don’t have an account? <a href="{{ route('admin.register') }}">Register</a></div>
                     </div>
                 </div>
             </div>

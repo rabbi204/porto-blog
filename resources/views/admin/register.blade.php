@@ -13,40 +13,47 @@
 						<div class="login-right-wrap">
 							<h1>Register</h1>
 							<p class="account-subtitle">Access to our dashboard</p>
-							
+
 							<!-- Form -->
-							<form action="">
-								<div class="form-group">
-									<input class="form-control" type="text" placeholder="Name">
+							<form action="{{ route('admin.register') }}" method="POST">
+								@csrf
+                                <div class="form-group">
+									<input name="name" class="form-control" type="text" placeholder="Name">
+								</div>
+                                <div class="form-group">
+									<input name="username" class="form-control" type="text" placeholder="username">
 								</div>
 								<div class="form-group">
-									<input class="form-control" type="text" placeholder="Email">
+									<input name="email" class="form-control" type="text" placeholder="Email">
+								</div>
+                                <div class="form-group">
+									<input name="phone_number" class="form-control" type="text" placeholder="phone_number">
 								</div>
 								<div class="form-group">
-									<input class="form-control" type="text" placeholder="Password">
+									<input name="password" class="form-control" type="password" placeholder="Password">
 								</div>
 								<div class="form-group">
-									<input class="form-control" type="text" placeholder="Confirm Password">
+									<input name="password_confirmation" class="form-control" type="password" placeholder="Confirm Password">
 								</div>
 								<div class="form-group mb-0">
 									<button class="btn btn-primary btn-block" type="submit">Register</button>
 								</div>
 							</form>
 							<!-- /Form -->
-							
-							<div class="login-or">
+
+							{{-- <div class="login-or">
 								<span class="or-line"></span>
 								<span class="span-or">or</span>
 							</div>
-							
+
 							<!-- Social Login -->
 							<div class="social-login">
 								<span>Register with</span>
 								<a href="#" class="facebook"><i class="fa fa-facebook"></i></a><a href="#" class="google"><i class="fa fa-google"></i></a>
 							</div>
-							<!-- /Social Login -->
-							
-							<div class="text-center dont-have">Already have an account? <a href="login.html">Login</a></div>
+							<!-- /Social Login --> --}}
+
+							<div class="text-center dont-have">Already have an account? <a href="{{ route('admin.login') }}">Login</a></div>
 						</div>
 					</div>
 				</div>
