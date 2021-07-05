@@ -36,6 +36,13 @@ Route::get('admin/dashboard',[App\Http\Controllers\AdminController::class, 'show
 Route::post('admin/login',[App\Http\Controllers\Auth\LoginController::class, 'login']) -> name('admin.login');
 // admin logout
 Route::post('admin/logout',[App\Http\Controllers\Auth\LoginController::class, 'logout']) -> name('admin.logout');
-
 // admin register
 Route::post('admin/register',[App\Http\Controllers\Auth\RegisterController::class, 'register']) -> name('admin.register');
+
+
+
+/****************************************************************************
+*  For All Admin Post route
+*****************************************************************************/
+
+Route::resource('post','App\Http\Controllers\PostController');
