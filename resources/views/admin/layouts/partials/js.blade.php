@@ -14,6 +14,7 @@
         <script src="{{ asset('admin/assets/js/chart.morris.js') }}"></script>
 
 
+
 		<!-- Custom JS -->
 		<script src="{{ asset('admin/assets/js/script.js') }}"></script>
 		<script src="{{ asset('admin/assets/js/porto/custom.js') }}"></script>

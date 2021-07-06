@@ -19,5 +19,8 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
+    
+    {{-- sweetalert --}}
+    <script src="{{ asset('admin/assets/js/sweetalert.min.js') }}"></script>
 
 </head>
