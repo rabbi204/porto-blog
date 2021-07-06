@@ -141,6 +141,7 @@
                      <div class="form-group">
                         <label for="">Name</label>
                         <input name="name" type="text" class="form-control">
+                        <input name="edit_id" type="text" class="form-control">
                      </div>
                      <div class="form-group">
                         <input type="submit" class="btn btn-sm btn-primary">
