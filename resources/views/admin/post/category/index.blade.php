@@ -79,7 +79,8 @@
                                             <td>{{ date('d F Y',strtotime($data -> created_at)) }}</td>
                                             <td>
                                                 {{-- <a class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a> --}}
-                                                <a class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                <a  edit_id="{{ $data -> id }}" class="btn btn-sm btn-warning edit_cat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                
                                                 <form class="d-inline" action="{{ route('category.destroy', $data -> id ) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -111,6 +112,29 @@
                  <hr>
                  <form action="{{ route('category.store') }}" method="POST">
                     @csrf
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input name="name" type="text" class="form-control">
+                     </div>
+                     <div class="form-group">
+                        <input type="submit" class="btn btn-sm btn-primary">
+                     </div>
+                 </form>
+            </div>
+        </div>
+    </div>
+ </div>
+
+  {{-- Edit Catagory  modal --}}
+  <div id="edit_category_modal" class="modal fade">
+    <div class="modal modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2>Update Category</h2>
+                 <hr>
+                 <form action="{{ route('category.update', $data ->id ) }}" method="POST">
+                    @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <label for="">Name</label>
                         <input name="name" type="text" class="form-control">

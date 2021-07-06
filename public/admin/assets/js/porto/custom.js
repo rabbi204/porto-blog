@@ -31,6 +31,22 @@
             }
         });
 
+        //Category Edit
+        $('.edit_cat').click( function(e) {
+            e.preventDefault();
+        
+            let id = $(this).attr('edit_id');
+            
+            $.ajax({
+                url: 'category/' + id + '/edit',
+                success : function(data){
+                    $(' #edit_category_modal form input[name="name"] ').val(data.name);
+                    $('#edit_category_modal').modal('show');
+                }
+            });
+        } );
+
+
         // Category / Tag / Post Data Detete btn fix
         $('.delete-btn').click( function (e) {
 
@@ -68,7 +84,20 @@
             }
         });
 
-        // 
+        // Edit tag
+        $('.edit-tag').click(function(e) {
+            e.preventDefault();
+           
+            let id = $(this).attr('edit_id');
+
+            $.ajax({
+                url : 'tag/' + id + '/edit',
+                success : function(data) {
+                   $( '#edit_tag_modal form input[name="name"]' ).val(data.name); 
+                   $('#edit_tag_modal').modal('show');
+                }
+            });
+        });
 
 
 

@@ -70,7 +70,12 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit_data = Category::find($id);
+
+        return [
+            'id' => $edit_data -> id,
+            'name' => $edit_data -> name,
+        ];
     }
 
     /**

@@ -69,7 +69,12 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit_data = Tag::find($id);
+
+        return [
+            'id' => $edit_data -> id,
+            'name' => $edit_data -> name,
+        ];
     }
 
     /**

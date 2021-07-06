@@ -80,7 +80,8 @@
                                             <td>{{ date('d F Y',strtotime($data -> created_at) ) }}</td>
                                             <td>
                                                 {{-- <a class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a> --}}
-                                                <a class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                <a class="btn btn-sm btn-warning edit-tag" edit_id="{{ $data -> id }}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                
                                                 <form class="d-inline" action="{{ route('tag.destroy', $data -> id ) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -105,7 +106,7 @@
 </div>
 <!-- /Main Wrapper -->
 
- {{-- tag add modal --}}
+ {{-- add tag modal --}}
  <div id="add_tag_modal" class="modal fade">
     <div class="modal modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -114,6 +115,29 @@
                  <hr>
                  <form action="{{ route('tag.store') }}" method="POST">
                    @csrf
+                     <div class="form-group">
+                        <label for="">Name</label>
+                        <input name="name" type="text" class="form-control">
+                     </div>
+                     <div class="form-group">
+                        <input type="submit" class="btn btn-sm btn-primary">
+                     </div>
+                 </form>
+            </div>
+        </div>
+    </div>
+ </div>
+
+ {{-- edit tag modal --}}
+ <div id="edit_tag_modal" class="modal fade">
+    <div class="modal modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2>Update Tag</h2>
+                 <hr>
+                 <form action="{{ route('tag.update', $data -> id ) }}" method="POST">
+                   @csrf
+                   @method('PATCH')
                      <div class="form-group">
                         <label for="">Name</label>
                         <input name="name" type="text" class="form-control">
