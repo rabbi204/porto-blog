@@ -41,11 +41,21 @@ Route::post('admin/register',[App\Http\Controllers\Auth\RegisterController::clas
 
 
 
-/****************************************************************************
-*  For All Admin Post route
-*****************************************************************************/
-// for category route
+                /****************************************************************************
+                *  For All Admin Post route
+                *****************************************************************************/
+// for post route
 Route::resource('post','App\Http\Controllers\PostController');
+
+// for post trash
+Route::get('post-trash','App\Http\Controllers\PostController@postTrash') -> name('post.trash');
+// for post trash update
+Route::get('post-trash-update/{id}','App\Http\Controllers\PostController@postTrashUpdate') -> name('post.trash.update');
+
+// for post check inactive
+Route::get('post/status-inactive/{id}','App\Http\Controllers\PostController@statusUpdateInactive');
+// for post check active
+Route::get('post/status-active/{id}','App\Http\Controllers\PostController@statusUpdateActive');
 
 // for category route
 Route::resource('category','App\Http\Controllers\CategoryController');

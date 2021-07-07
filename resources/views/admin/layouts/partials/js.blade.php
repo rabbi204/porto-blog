@@ -13,7 +13,12 @@
         <script src="{{ asset('admin/assets/plugins/morris/morris.min.js') }}"></script>
         <script src="{{ asset('admin/assets/js/chart.morris.js') }}"></script>
 
+        <!-- select2 JS -->
+        <script src="{{ asset('admin/assets/js/select2.js') }}"></script>
 
+        <!-- ckeditor JS -->
+        {{-- <script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script> --}}
+        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
 		<!-- Custom JS -->
 		<script src="{{ asset('admin/assets/js/script.js') }}"></script>

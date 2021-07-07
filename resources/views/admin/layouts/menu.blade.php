@@ -12,7 +12,7 @@
                 <li class="submenu">
                     <a href="#"><i class="fe fe-document"></i> <span> Blogs</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="invoice-report.html">Add New Post</a></li>
+                        <li><a href="{{ route('post.create') }}">Add New Post</a></li>
                         <li><a href="{{ route('post.index') }}">All Post</a></li>
                         <li><a href="{{ route('category.index') }}">Category</a></li>
                         <li><a href="{{ route('tag.index') }}">Tag</a></li>

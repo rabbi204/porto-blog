@@ -17,10 +17,15 @@
 
     <link rel="stylesheet" href="{{ asset('admin/assets/plugins/morris/morris.css') }}">
 
+    {{-- sweetalert --}}
+    <script src="{{ asset('admin/assets/js/sweetalert.min.js') }}"></script>
+
+    <!-- select2 CSS -->
+    <link href="{{ asset('admin/assets/css/select2.css') }}" rel="stylesheet" />
+
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
     
-    {{-- sweetalert --}}
-    <script src="{{ asset('admin/assets/js/sweetalert.min.js') }}"></script>
+
 
 </head>
