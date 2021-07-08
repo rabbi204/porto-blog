@@ -74,8 +74,11 @@ Route::get('tag/status-active/{id}','App\Http\Controllers\TagController@statusUp
 
 
 
-
-
+/**
+ *  frontend route
+ */
+Route::get('blog', [App\Http\Controllers\BlogPageController::class, 'showBlogPage']);
+Route::get('blog/single', [App\Http\Controllers\BlogPageController::class, 'showSingleBlogPage']);
 
 
 
