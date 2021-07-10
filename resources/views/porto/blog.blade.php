@@ -8,14 +8,14 @@
     <div class="blog-posts">
         <div class="row px-3">
 
-        
+
           @foreach ($all_posts as $post)
            @php
-   
+
                $fetaured = json_decode( $post -> featured );
 
            @endphp
-                
+
           <div class="col-sm-6">
              <article class="post post-medium border-0 pb-0 mb-5">
 
@@ -38,9 +38,9 @@
                              </a>
                         </div>
                     @endforeach
-                
+
                 @endif --}}
-                
+
 
                 <div class="post-content">
                    <h2 class="font-weight-semibold text-5 line-height-6 mt-3 mb-2"><a href="blog-post.html">{{ $post -> title }}</a></h2>
@@ -59,23 +59,13 @@
              </article>
           </div>
           @endforeach
-          
+
 
         </div>
 
-       {{ $all_posts -> links() }}
+       {{ $all_posts -> links('paginate') }}
 
-       {{-- <div class="row">
-          <div class="col">
-             <ul class="pagination float-right">
-                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-left"></i></a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
-             </ul>
-          </div>
-       </div> --}}
+        {{-- @include('paginate') --}}
 
     </div>
  </div>

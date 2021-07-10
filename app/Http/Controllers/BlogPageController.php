@@ -13,7 +13,7 @@ class BlogPageController extends Controller
     */
     public function showBlogPage()
     {
-       $all_posts = Post::where('status', true ) -> where('trash', false) ->latest() -> paginate(3);
+       $all_posts = Post::where('status', true ) -> where('trash', false) ->latest() -> paginate(4);
        $all_cats = Category::where('status', true ) ->latest() -> get();
        return view('porto.blog',[
            'all_posts' => $all_posts,

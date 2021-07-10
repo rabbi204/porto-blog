@@ -188,6 +188,14 @@
         });
 
 
+        // dashboard menu fix
+
+        $('#sidebar-menu ul li ul li.fix').parent('ul').slideDown();
+        $('#sidebar-menu ul li ul li.fix a').css('color','#5ae8ff');
+        $('#sidebar-menu ul li ul li.fix').parent('ul').parent('li').children('a').css('background-color','#19c1dc');
+        $('#sidebar-menu ul li ul li.fix').parent('ul').parent('li').children('a').addClass('subdrop');
+
+
 
 
 
