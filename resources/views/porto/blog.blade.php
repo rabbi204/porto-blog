@@ -46,8 +46,12 @@
                    <h2 class="font-weight-semibold text-5 line-height-6 mt-3 mb-2"><a href="blog-post.html">{{ $post -> title }}</a></h2>
                    <p> {!! Str::of(htmlspecialchars_decode($post -> content)) -> words(20) !!} </p>
                    <div class="post-meta">
-                      <span><i class="far fa-user"></i> By <a href="#">Bob Doe</a> </span>
-                      <span><i class="far fa-folder"></i> <a href="#">News</a>, <a href="#">Design</a> </span>
+                      <span><i class="far fa-user"></i> By <a href="{{ $post -> user_id }}">{{ $post -> user -> name }}</a> </span>
+                      <span><i class="far fa-folder"></i>
+                        @foreach ( $post -> categories as $cat)
+                         <a href="">{{ $cat -> name }}</a>,
+                        @endforeach
+                     </span>
                       <span><i class="far fa-comments"></i> <a href="#">12 Comments</a></span>
                       <span class="d-block mt-2"><a href="blog-post.html" class="btn btn-xs btn-light text-1 text-uppercase">Read More</a></span>
                    </div>

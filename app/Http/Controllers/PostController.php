@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -35,8 +36,8 @@ class PostController extends Controller
     public function create()
     {
         $data = Post::all();
-        $cat = Category::all();
-        $tag = Tag::all();
+        $cat = Category::where('status',true) -> latest() -> get();
+        $tag = Tag::where('status',true) -> latest() -> get();
         return view('admin.post.create',[
             'all_data' => $data,
             'all_cat'  => $cat,
@@ -52,7 +53,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        
+
+
         $this -> validate( $request, [
             'title'  => 'required',
             'content'  => 'required',
@@ -61,7 +63,7 @@ class PostController extends Controller
 
         // for Image upload
         $unique_file_name = '';
-        
+
         if( $request -> hasFile('image')){
             $img = $request -> file('image');
             $unique_file_name = md5( time().rand() ) . '.' . $img ->getClientOriginalExtension();
@@ -93,17 +95,21 @@ class PostController extends Controller
             'post_audio'  => $request -> audio,
         ];
 
-    
-        //send value in database 
-        $data = Post::create([
+
+        //send value in database
+        $post_data = Post::create([
             'title' => $request -> title,
+            'user_id' => Auth::user() -> id,
             'slug' => Str::slug($request -> title),
             'featured' => json_encode($post_featured),
             'content' => $request -> content,
         ]);
 
+        $post_data -> categories() -> attach( $request -> cat );
+        $post_data -> tags() -> attach( $request -> tag );
+
         return redirect() ->route('post.create') ->with('success', 'Post Create Successfull');
-    
+
 
 
     }

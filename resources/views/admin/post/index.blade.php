@@ -49,6 +49,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Post Name</th>
+                                            <th>Author</th>
                                             <th>Post Type</th>
                                             <th>Post Category</th>
                                             <th>Post Tag</th>
@@ -68,9 +69,18 @@
                                         <tr>
                                             <td>{{ $loop -> index + 1 }}</td>
                                             <td>{{ $data -> title }}</td>
+                                            <td>{{ $data -> user -> name }}</td>
                                             <td>{{ $featured_data -> post_type }}</td>
-                                            <td>category</td>
-                                            <td>tag</td>
+                                            <td>
+                                                @foreach ( $data -> categories  as $cat)
+                                                 <li>{{ $cat -> name }}</li>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach ( $data -> tags  as $tag)
+                                                 <li>{{ $tag -> name }}</li>
+                                                @endforeach
+                                            </td>
                                             <td>
                                                 <div class="status-toggle">
                                                     <input type="checkbox" status_id="{{ $data -> id }}" {{ $data -> status == true ? 'checked="checked"' : '' }} id="post_status_{{ $loop -> index + 1 }}" class="check post_check" >
