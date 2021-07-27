@@ -13,17 +13,20 @@
                 <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <h5 class="text-3 mb-3">RECENT POSTS</h5>
                     <ul class="list-unstyled mb-0">
-                        @foreach ( $all_posts as $post)
-                        @php
-   
-                            $fetaured = json_decode( $post -> featured );
 
+                        @php
+                            $all_posts = App\Models\Post::where('status',true) -> where('trash', false) ->take(4) -> latest() -> get();
+                        @endphp
+
+                        @foreach( $all_posts as $post )
+                        @php
+                          $fetaured = json_decode( $post -> featured )
                         @endphp
                         <li class="media">
                             <article class="d-flex">
                                 <a href="#"> <img class="mr-3 rounded-circle" src="{{ URL::to('') }}/media/post/{{ $fetaured -> post_image }}" alt="" style="max-width: 70px;"> </a>
                                 <div class="media-body">
-                                    <a href="#">
+                                    <a href="{{ route('blog.post.single', $post -> slug) }}">
                                         <h6 class="text-3 text-color-light opacity-8 ls-0 mb-1">{{ $post -> title }}</h6>
                                         {{-- <p class="text-2 mb-0">12:53 AM Dec 19th</p> --}}
                                         <p class="text-2 mb-0">{{ date('i:g At M d', strtotime($post -> created_at) ) }} </p>
@@ -56,8 +59,12 @@
                 <div class="col-md-6 col-lg-2">
                     <h5 class="text-3 mb-3">CATEGORIES</h5>
                     <p>
+                        
+                        @php
+                           $all_cats = App\Models\Category::where('status',true) ->take(10) -> latest() -> get();
+                        @endphp
                     @foreach($all_cats as $cat)
-                        <a href="#"><span class="badge badge-dark bg-color-black badge-sm py-2 mr-1 mb-2 text-uppercase">{{ $cat -> name }}</span></a>
+                        <a href="{{ route('blog.category.search', $cat -> slug) }}"><span class="badge badge-dark bg-color-black badge-sm py-2 mr-1 mb-2 text-uppercase">{{ $cat -> name }}</span></a>
                     @endforeach
 
                     </p>

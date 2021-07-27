@@ -2,8 +2,9 @@
 <div class="col-lg-3 order-lg-2">
     <aside class="sidebar">
 
-        <form action="https://www.okler.net/previews/porto/8.3.0/page-search-results.html" method="get">
-            <div class="input-group mb-3 pb-1"> <input class="form-control text-1" placeholder="Search..." name="s" id="s" type="text"> <span class="input-group-append"> <button type="submit" class="btn btn-dark text-1 p-2"><i class="fas fa-search m-2"></i></button> </span> </div>
+        <form action="{{ route('blog.post.search') }}" method="POST">
+            @csrf
+            <div  class="input-group mb-3 pb-1"> <input name="search" class="form-control text-1" placeholder="Search..." name="s" id="s" type="text"> <span class="input-group-append"> <button type="submit" class="btn btn-dark text-1 p-2"><i class="fas fa-search m-2"></i></button> </span> </div>
         </form>
 
         <h5 class="font-weight-semi-bold pt-4">Categories</h5>
@@ -14,7 +15,7 @@
             @endphp
 
             @foreach( $all_cat as $cat )
-                <li class="nav-item"><a class="nav-link" href="{{ $cat -> id }}"> {{ $cat -> name }} </a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('blog.category.search', $cat -> slug) }}"> {{ $cat -> name }} </a></li>
             @endforeach
 
             {{-- <li class="nav-item"><a class="nav-link" href="#">Design (2)</a></li>
@@ -72,7 +73,7 @@
 
                 <div class="tab-pane" id="recentPosts">
                     <ul class="simple-post-list">
-                                
+
                         @php
                             $all_posts = App\Models\Post::where('status',true) -> where('trash', false) ->take(4) -> latest() -> get();
                         @endphp
@@ -83,11 +84,11 @@
                         @endphp
                         <li>
                             <div class="post-image">
-                                <div class="porto/assets/img-thumbnail img-thumbnail-no-borders d-block"> <a href="{{ $post -> id }}"> <img src="{{ URL::to('') }}/media/post/{{ $fetaured ->post_image }}" width="50" height="50" alt=""> </a> </div>
+                                <div class="img-thumbnail img-thumbnail-no-borders d-block"> <a href="{{ route('blog.post.single', $post -> slug) }}"> <img src="{{ URL::to('') }}/media/post/{{ $fetaured ->post_image }}" width="50" height="50" alt=""> </a> </div>
                             </div>
                             <div class="post-info">
-                                <a href="blog-post.html">{{ $post -> title }}</a>
-                                <div class="post-meta"> {{ date('F d, Y', strtotime($post -> created_at) ) }} 
+                                <a href="{{ route('blog.post.single', $post -> slug) }}">{{ $post -> title }}</a>
+                                <div class="post-meta"> {{ date('F d, Y', strtotime($post -> created_at) ) }}
                             </div>
                         </li>
                         @endforeach

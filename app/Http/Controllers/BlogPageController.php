@@ -22,12 +22,45 @@ class BlogPageController extends Controller
     }
 
     /**
-    * for Blog page show
+    * for single Blog page show
     */
-    public function showSingleBlogPage()
+    public function showSingleBlogPage($slug)
     {
-    //    $all_posts = Post::where('status', true ) -> get();
-       return view('porto.blog-single');
+    
+        $single_post = Post::where('slug', $slug ) -> first();
+
+       return view('porto.blog-single',compact('single_post'));
+    }
+
+    /**
+     *  blog search by searchbox
+     */
+
+     public function searchBlog(Request $request){
+
+        if( empty($request -> search) ){
+            $search = '';
+        }else{
+            $search = $request -> search;
+        }
+        
+        $posts = Post::where('title','LIKE','%'. $search .'%')-> latest() -> paginate();
+        $all_cats = Category::where('status', true ) ->latest() -> get();
+        return view('porto.blog-search', [
+            'all_posts'  => $posts,
+            'all_cats' => $all_cats,
+        ]);
+     }
+
+     /**
+      * blog search by category
+      */
+    public function blogSearchByCategory($slug){
+
+        $cats = Category::where('slug',$slug) -> first();
+        return view('porto.category-blog',[
+            'all_posts'  => $cats -> posts,
+        ]);
     }
 
 

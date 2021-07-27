@@ -1,21 +1,52 @@
 @extends('porto.layouts.app')
 
+
+@section('page-title', $single_post -> title )
+
+@section('page-category')
+    @foreach($single_post -> categories as $cat)
+        @section('page-category',  $cat -> name )
+    @endforeach
+@endsection
+
+
 @section('main-content')
 <div class="col-lg-9 order-lg-1">
 	<div class="blog-posts single-post">
 		<article class="post post-large blog-single-post border-0 m-0 p-0">
 			<div class="post-image ml-0">
-				<a href="blog-post.html"> <img src="{{ asset('porto/assets/img/blog/wide/blog-11.jpg') }}" class="porto/assets/img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" /> </a>
+				
+                    @php
+                        $featured = json_decode( $single_post -> featured );
+                    @endphp
+
+                    @if($featured -> post_type == 'Image')
+                        <img src="{{ URL::to('') }}/media/post/{{ $featured -> post_image }}" class="porto/assets/img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" />
+                        {{-- @elseif($featured -> post_type == 'Gallery'){
+                            @foreach ($featured -> post_gallery as $gall )
+                            <li>
+                                <img src="{{ URL::to('') }}/media/post/{{ $gall }}" alt="">
+                            </li>
+                            @endforeach
+                        } --}}
+                    @endif
+                    
+                    
+                 
 			</div>
 			<div class="post-date ml-0"> <span class="day">10</span> <span class="month">Jan</span> </div>
 			<div class="post-content ml-0">
-				<h2 class="font-weight-semi-bold"><a href="blog-post.html">Class aptent taciti sociosqu ad litora torquent</a></h2>
-				<div class="post-meta"> <span><i class="far fa-user"></i> By <a href="#">John Doe</a> </span> <span><i class="far fa-folder"></i> <a href="#">Lifestyle</a>, <a href="#">Design</a> </span> <span><i class="far fa-comments"></i> <a href="#">12 Comments</a></span> </div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum nec mauris. Duis molestie, purus eget placerat viverra, nisi odio gravida sapien, congue tincidunt nisl ante nec tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sagittis, massa fringilla consequat blandit, mauris ligula porta nisi, non tristique enim sapien vel nisl. Suspendisse vestibulum lobortis dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent nec tempus nibh. Donec mollis commodo metus et fringilla. Etiam venenatis, diam id adipiscing convallis, nisi eros lobortis tellus, feugiat adipiscing ante ante sit amet dolor. Vestibulum vehicula scelerisque facilisis. Sed faucibus placerat bibendum. Maecenas sollicitudin commodo justo, quis hendrerit leo consequat ac. Proin sit amet risus sapien, eget interdum dui. Proin justo sapien, varius sit amet hendrerit id, egestas quis mauris.</p>
-				<p>Ut ac elit non mi pharetra dictum nec quis nibh. Pellentesque ut fringilla elit. Aliquam non ipsum id leo eleifend sagittis id a lorem. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam massa mauris, viverra et rhoncus a, feugiat ut sem. Quisque ultricies diam tempus quam molestie vitae sodales dolor sagittis. Praesent commodo sodales purus. Maecenas scelerisque ligula vitae leo adipiscing a facilisis nisl ullamcorper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
-				<p>Curabitur non erat quam, id volutpat leo. Nullam pretium gravida urna et interdum. Suspendisse in dui tellus. Cras luctus nisl vel risus adipiscing aliquet. Phasellus convallis lorem dui. Quisque hendrerit, lectus ut accumsan gravida, leo tellus porttitor mi, ac mattis eros nunc vel enim. Nulla facilisi. Nam non nulla sed nibh sodales auctor eget non augue. Pellentesque sollicitudin consectetur mauris, eu mattis mi dictum ac. Etiam et sapien eu nisl dapibus fermentum et nec tortor.</p>
-				<p>Curabitur nec nulla lectus, non hendrerit lorem. Quisque lorem risus, porttitor eget fringilla non, vehicula sed tortor. Proin enim quam, vulputate at lobortis quis, condimentum at justo. Phasellus nec nisi justo. Ut luctus sagittis nulla at dapibus. Aliquam ullamcorper commodo elit, quis ornare eros consectetur a. Curabitur nulla dui, fermentum sed dapibus at, adipiscing eget nisi. Aenean iaculis vehicula imperdiet. Donec suscipit leo sed metus vestibulum pulvinar. Phasellus bibendum magna nec tellus fringilla faucibus. Phasellus mollis scelerisque volutpat. Ut sed molestie turpis. Phasellus ultrices suscipit tellus, ac vehicula ligula condimentum et.</p>
-				<p>Aenean metus nibh, molestie at consectetur nec, molestie sed nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec euismod urna. Donec gravida pharetra ipsum, non volutpat ipsum sagittis a. Phasellus ut convallis ipsum. Sed nec dui orci, nec hendrerit massa. Curabitur at risus suscipit massa varius accumsan. Proin eu nisi id velit ultrices viverra nec condimentum magna. Ut porta orci quis nulla aliquam at dictum mi viverra. Maecenas ultricies elit in tortor scelerisque facilisis. Mauris vehicula porttitor lacus, vel pretium est semper non. Ut accumsan rhoncus metus non pharetra. Quisque luctus blandit nisi, id tempus tellus pulvinar eu. Nam ornare laoreet mi a molestie. Donec sodales scelerisque congue. </p>
+				<h2 class="font-weight-semi-bold">{{ $single_post -> title }}</h2>
+				<div class="post-meta"> <span><i class="far fa-user"></i> By <a href="#">{{ $single_post -> user -> name }}</a> </span> 
+                    <span><i class="far fa-folder"></i>
+                        @foreach ($single_post -> categories as $cat)
+                            <a href="{{ route('blog.category.search', $cat -> slug) }}">{{$cat -> name}}</a>,
+                        @endforeach
+                        
+                         
+                    </span>
+                      <span><i class="far fa-comments"></i> <a href="#">12 Comments</a></span> </div>
+				<p>{!! htmlspecialchars_decode($single_post -> content) !!}</p>
 				<div class="post-block mt-5 post-share">
 					<h4 class="mb-3">Share this Post</h4>
 					<div class="addthis_toolbox addthis_default_style ">
@@ -28,97 +59,117 @@
 				</div>
 				<div class="post-block mt-4 pt-2 post-author">
 					<h4 class="mb-3">Author</h4>
-					<div class="porto/assets/img-thumbnail img-thumbnail-no-borders d-block pb-3">
-						<a href="blog-post.html"> <img src="porto/assets/img/avatars/avatar.jpg" alt=""> </a>
+					<div class="img-thumbnail img-thumbnail-no-borders d-block pb-3">
+						<a href="blog-post.html"> <img src="{{ asset('porto/assets/img/avatars/avatar.jpg') }}" alt=""> </a>
 					</div>
-					<p><strong class="name"><a href="#" class="text-4 pb-2 pt-2 d-block">John Doe</a></strong></p>
+					<p><strong class="name"><a href="#" class="text-4 pb-2 pt-2 d-block">{{ $single_post -> user -> name }}</a></strong></p>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim ornare nisi, vitae mattis nulla ante id dui. </p>
 				</div>
+				<br>
 
-                
+                @if ( Session::has('success') )
+				<p class="alert alert-success">{{ Session::get('success') }}</p>
+				@endif
+
+				
+
+
 				<div id="comments" class="post-block mt-5 post-comments">
-					<h4 class="mb-3">Comments (3)</h4>
+					<h4 class="mb-3">Comments (1)</h4>
 					<ul class="comments">
+
+						@foreach ($single_post -> comments as $comment)
+
+						@if ($comment -> comment_id == null)
+							
 						<li>
 							<div class="comment">
-								<div class="porto/assets/img-thumbnail img-thumbnail-no-borders d-none d-sm-block"> <img class="avatar" alt="" src="porto/assets/img/avatars/avatar-2.jpg"> </div>
+								<div class="img-thumbnail img-thumbnail-no-borders d-none d-sm-block"> <img class="avatar" alt="" src="{{ URL::to('porto/assets/img/avatars/avatar-2.jpg') }}"> </div>
 								<div class="comment-block">
 									<div class="comment-arrow"></div> <span class="comment-by">
-                                             <strong>John Doe</strong>
+                                             <strong>{{ $comment -> user -> name }}</strong>
                                              <span class="float-right">
-                                             <span> <a href="#"><i class="fas fa-reply"></i> Reply</a></span> </span>
+                                             <span>
+												 @guest
+												 <p>Please <a href="{{ route('admin.login') }}">Login</a> first for place a reply</p>
+												 @else
+												 <a c_id="{{ $comment -> id }}" class="post-reply-btn" href="#"><i class="fas fa-reply"></i> Reply</a>
+												 <div class="reply-box reply-box-{{ $comment -> id }} ">
+													<form action="{{ route('blog.post.reply') }}" method="POST">
+														@csrf
+														<div class="form-row">
+															<div class="form-group col">
+																<input name="post_id" type="hidden" value="{{ $single_post -> id }}">
+																<input name="comment_id" type="hidden" value="{{ $comment -> id }}">
+																<input name="reply_text" class="form-control" type="text" >
+															</div>
+														</div>
+														<div class="form-row">
+															<div class="form-group col">
+																<button class="btn btn-primary" type="submit">Reply</button>
+															</div>
+														</div>
+														
+													</form>
+												 </div>
+												 @endguest
+												  
+											</span> </span>
 									</span>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae, gravida pellentesque urna varius vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim ornare nisi, vitae mattis nulla ante id dui.</p> <span class="date float-right">January 12, 2021 at 1:38 pm</span> </div>
+									<p>{{ $comment -> text }}</p> <span class="date float-right">{{ date('F d, Y',strtotime( $comment -> created_at ) ) }} at {{ date('g:i A',strtotime( $comment -> created_at ) ) }}</span> </div>
+
 							</div>
+
+							@php
+								$comments = App\Models\Comment::where('comment_id','!=',null) -> where('comment_id',$comment -> id) -> latest() -> get();
+							@endphp
+
+							@foreach ($comments as $comm)	
 							<ul class="comments reply">
 								<li>
 									<div class="comment">
-										<div class="porto/assets/img-thumbnail img-thumbnail-no-borders d-none d-sm-block"> <img class="avatar" alt="" src="porto/assets/img/avatars/avatar-3.jpg"> </div>
+										<div class="img-thumbnail img-thumbnail-no-borders d-none d-sm-block"> <img class="avatar" alt="" src="{{ asset('porto/assets/img/avatars/avatar-3.jpg') }}"> </div>
 										<div class="comment-block">
 											<div class="comment-arrow"></div> <span class="comment-by">
-                                                   <strong>John Doe</strong>
+                                                   <strong>{{ $comm -> user -> name }}</strong>
                                                    <span class="float-right">
                                                    <span> <a href="#"><i class="fas fa-reply"></i> Reply</a></span> </span>
 											</span>
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae, gravida pellentesque urna varius vitae.</p> <span class="date float-right">January 12, 2021 at 1:38 pm</span> </div>
-									</div>
-								</li>
-								<li>
-									<div class="comment">
-										<div class="porto/assets/img-thumbnail img-thumbnail-no-borders d-none d-sm-block"> <img class="avatar" alt="" src="porto/assets/img/avatars/avatar-4.jpg"> </div>
-										<div class="comment-block">
-											<div class="comment-arrow"></div> <span class="comment-by">
-                                                   <strong>John Doe</strong>
-                                                   <span class="float-right">
-                                                   <span> <a href="#"><i class="fas fa-reply"></i> Reply</a></span> </span>
-											</span>
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae, gravida pellentesque urna varius vitae.</p> <span class="date float-right">January 12, 2021 at 1:38 pm</span> </div>
+											<p>{{ $comm -> text  }}</p> <span class="date float-right">{{ date('F d, Y',strtotime( $comment -> created_at ) ) }} at {{ date('g:i A',strtotime( $comment -> created_at ) ) }}</span></span> </div>
 									</div>
 								</li>
 							</ul>
+							@endforeach
+
 						</li>
-						<li>
-							<div class="comment">
-								<div class="porto/assets/img-thumbnail img-thumbnail-no-borders d-none d-sm-block"> <img class="avatar" alt="" src="porto/assets/img/avatars/avatar.jpg"> </div>
-								<div class="comment-block">
-									<div class="comment-arrow"></div> <span class="comment-by">
-                                             <strong>John Doe</strong>
-                                             <span class="float-right">
-                                             <span> <a href="#"><i class="fas fa-reply"></i> Reply</a></span> </span>
-									</span>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> <span class="date float-right">January 12, 2021 at 1:38 pm</span> </div>
-							</div>
-						</li>
-						<li>
-							<div class="comment">
-								<div class="porto/assets/img-thumbnail img-thumbnail-no-borders d-none d-sm-block"> <img class="avatar" alt="" src="porto/assets/img/avatars/avatar.jpg"> </div>
-								<div class="comment-block">
-									<div class="comment-arrow"></div> <span class="comment-by">
-                                             <strong>John Doe</strong>
-                                             <span class="float-right">
-                                             <span> <a href="#"><i class="fas fa-reply"></i> Reply</a></span> </span>
-									</span>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> <span class="date float-right">January 12, 2021 at 1:38 pm</span> </div>
-							</div>
-						</li>
+						@endif
+						@endforeach
+
 					</ul>
 				</div>
+
+				@guest
+					<p>Please <a href="{{ route('admin.login') }}">Login</a> first befor place a comment</p>
+				  @else
 				<div class="post-block mt-5 post-leave-comment">
+
 					<h4 class="mb-3">Leave a comment</h4>
-					<form class="contact-form p-4 rounded bg-color-grey" action="https://www.okler.net/previews/porto/8.3.0/php/contact-form.php" method="POST">
+					<form class="contact-form p-4 rounded bg-color-grey" action="{{ route('blog.post.comment') }}" method="POST">
+						@csrf
 						<div class="p-2">
-							<div class="form-row">
+							{{-- <div class="form-row">
 								<div class="form-group col-lg-6">
 									<label class="required font-weight-bold text-dark">Full Name</label>
 									<input type="text" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control" name="name" required> </div>
 								<div class="form-group col-lg-6">
 									<label class="required font-weight-bold text-dark">Email Address</label>
 									<input type="email" value="" data-msg-required="Please enter your email address." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control" name="email" required> </div>
-							</div>
+							</div> --}}
 							<div class="form-row">
 								<div class="form-group col">
 									<label class="required font-weight-bold text-dark">Comment</label>
-									<textarea maxlength="5000" data-msg-required="Please enter your message." rows="8" class="form-control" name="message" required></textarea>
+									<input name="post_id" type="hidden" value="{{ $single_post -> id }}">
+									<textarea name="comments" maxlength="5000" data-msg-required="Please enter your message." rows="8" class="form-control" name="message" required></textarea>
 								</div>
 							</div>
 							<div class="form-row">
@@ -128,6 +179,8 @@
 						</div>
 					</form>
 				</div>
+				@endguest
+
 			</div>
 		</article>
 	</div>

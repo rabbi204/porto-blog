@@ -77,10 +77,22 @@ Route::get('tag/status-active/{id}','App\Http\Controllers\TagController@statusUp
 /**
  *  frontend route
  */
-Route::get('blog', [App\Http\Controllers\BlogPageController::class, 'showBlogPage']);
-Route::get('blog/single', [App\Http\Controllers\BlogPageController::class, 'showSingleBlogPage']);
+Route::get('blog', [App\Http\Controllers\BlogPageController::class, 'showBlogPage'])->name('blog.post');
+Route::get('blog/{slug}', [App\Http\Controllers\BlogPageController::class, 'showSingleBlogPage']) -> name('blog.post.single');
 
 
+// blog search
+Route::post('blog',[App\Http\Controllers\BlogPageController::class, 'searchBlog'])
+-> name('blog.post.search');
+
+//blog search by category
+Route::get('blog/category/{slug}',[App\Http\Controllers\BlogPageController::class, 'blogSearchByCategory'])
+-> name('blog.category.search');
+
+// comment management
+Route::post('blog-post-comments',[App\Http\Controllers\CommentController::class, 'postComment']) -> name('blog.post.comment');
+
+Route::post('blog-post-reply',[App\Http\Controllers\CommentController::class, 'addPostReply']) -> name('blog.post.reply');
 
 
 

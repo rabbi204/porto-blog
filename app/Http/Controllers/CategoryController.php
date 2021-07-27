@@ -45,7 +45,7 @@ class CategoryController extends Controller
 
          Category::create([
             'name' => $request -> name,
-            'slug' => Str::slug($request -> name),
+            'slug' => $this -> getSlug($request -> name),
          ]);
 
          return redirect() -> route('category.index') -> with('success', 'Category Added Successful');
@@ -91,7 +91,7 @@ class CategoryController extends Controller
 
         $update_data = Category::find($edit_id);
         $update_data -> name =  $request -> name;
-        $update_data -> slug = Str::slug( $request -> name ) ;
+        $update_data -> slug = $this -> getSlug($request -> name);
         $update_data -> update();
 
         return redirect() ->route('category.index') -> with('success','Category Updated Sucessful');

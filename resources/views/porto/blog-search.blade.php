@@ -49,11 +49,11 @@
                       <span><i class="far fa-user"></i> By <a href="{{ $post -> user_id }}">{{ $post -> user -> name }}</a> </span>
                       <span><i class="far fa-folder"></i>
                         @foreach ( $post -> categories as $cat)
-                         <a href="{{ route('blog.category.search', $cat -> slug) }}">{{ $cat -> name }}</a>,
+                         <a href="">{{ $cat -> name }}</a>,
                         @endforeach
                      </span>
                       <span><i class="far fa-comments"></i> <a href="#">12 Comments</a></span>
-                      <span class="d-block mt-2"><a href="{{ route('blog.post.single', $post -> slug) }}" class="btn btn-xs btn-light text-1 text-uppercase">Read More</a></span>
+                      <span class="d-block mt-2"><a href="blog-post.html" class="btn btn-xs btn-light text-1 text-uppercase">Read More</a></span>
                    </div>
                 </div>
              </article>
@@ -65,7 +65,7 @@
 
        {{ $all_posts -> links('paginate') }}
 
-        {{-- @include('paginate') --}}
+
 
     </div>
  </div>
